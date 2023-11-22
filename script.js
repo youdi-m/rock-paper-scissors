@@ -2,26 +2,48 @@ let playerLives = 5
 let computerLives = 5
 options = ["rock", "paper", "scissors"]
 
-function getComputerSelection() {
-    choice = Math.floor(Math.random * 3) //random number between 0 and 2
-    console.log(choice)
+function getComputerSelection()
+{
+    choice = Math.floor(Math.random() * 3) //random number between 0 and 2
+    return options[choice]
 }
 
-const playerSelection = "rock"
-const computerSelection = getComputerSelection()
+let playerSelection = "rock"
+let computerSelection = getComputerSelection()
 
 function playRound (player1, player2) {
-    if (playerSelection == "rock" && computerSelection == "rock") return ("It's a tie!")
-    if (playerSelection == "rock" && computerSelection == "paper") return ("You win!")
-    if (playerSelection == "rock" && computerSelection == "scissors") return ("You Lose!")
+    if (playerSelection == computerSelection)
+    {
+        return "It's a tie!"
 
-    if (playerSelection == "paper" && computerSelection == "rock") return "You win!"
-    if (playerSelection == "paper" && computerSelection == "paper") return "It's a tie!"
-    if (playerSelection == "paper" && computerSelection == "scissors") return "You Lose!"
-
-    if (playerSelection == "scissors" && computerSelection == "rock") return "You Lose!"
-    if (playerSelection == "scissors" && computerSelection == "paper") return "You win!"
-    if (playerSelection == "scissors" && computerSelection == "scissors") return "It's a tie!"
+    } else if ((playerSelection == "rock" && computerSelection == "scissors") || 
+        (playerSelection == "paper" && computerSelection == "rock") ||
+        (playerSelection == "scissors" && computerSelection == "paper"))
+        {
+            computerLives -= 1
+            return ("You: " + playerSelection + " " + "Computer: " + computerSelection + " you Win |" + " You: " + playerLives + " Computer: " + computerLives)
+        }
+        else if ((playerSelection == "rock" && computerSelection == "paper") ||
+        (playerSelection == "paper" && computerSelection == "scissors") ||
+        (playerSelection == "scissors" && computerSelection == "rock"))
+        {
+            playerLives -= 1
+            return ("You: " + playerSelection + " " + "Computer: " + computerSelection + " you Lose |" + " You: " + playerLives + " Computer: " + computerLives)
+        }
 }
 
-console.log(playRound(playerSelection, computerSelection))
+while (playerLives >= 0 || computerLives >= 0)
+{
+    console.log(playRound(playerSelection, computerSelection))
+    computerSelection = getComputerSelection()
+
+    if (playerLives == 0)
+    {
+        console.log("You lose!")
+        break
+    } else if (computerLives == 0)
+    {
+        console.log("You Win!")
+        break
+    }
+}
