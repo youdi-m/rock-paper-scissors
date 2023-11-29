@@ -1,34 +1,61 @@
-let playerLives = 5
-let computerLives = 5
-options = ["rock", "paper", "scissors"]
+let playerLives = 5;
+let computerLives = 5;
+let playerSelection = '';
+let computerSelection = '';
+
+options = ["rock", "paper", "scissors"];
+
+const rockButton = document.querySelector('#rock');
+const paperButton = document.querySelector('#paper');
+const scissorsButton = document.querySelector('#scissors');
+const result = document.querySelector('#resultContainer');
+const winLoseText = document.querySelector('#winLoseText');
+const playerLivesText = document.querySelector('#playerLivesText');
+const computerLivesText = document.querySelector('#computerLivesText');
 
 function getComputerSelection()
 {
-    choice = Math.floor(Math.random() * 3) //random number between 0 and 2
-    return options[choice]
+    choice = Math.floor(Math.random() * 3); //random number between 0 and 2
+    return options[choice];
 }
 
-let playerSelection = "rock"
-let computerSelection = getComputerSelection()
+function getPlayerSelection(playerClicked)
+{
+    playerSelection = playerClicked;
+    computerSelection = getComputerSelection();
+}
 
-function playRound (player1, player2) {
-    if (playerSelection == computerSelection)
+rockButton.addEventListener('click', () => {
+    getComputerSelection(options[0]);
+});
+
+paperButton.addEventListener('click', () => {
+    getComputerSelection(options[1]);
+});
+
+scissorsButton.addEventListener('click', () => {
+    getComputerSelection(options[2]);
+});
+
+function playRound(player1, player2)
+{
+    if (player1 == player2)
     {
-        return "It's a tie!"
+        winLoseText.textContent = 'its a tie!';
 
-    } else if ((playerSelection == "rock" && computerSelection == "scissors") || 
-        (playerSelection == "paper" && computerSelection == "rock") ||
-        (playerSelection == "scissors" && computerSelection == "paper"))
+    } else if ((player1 == "rock" && player2 == "scissors") || 
+        (player1 == "paper" && player2 == "rock") ||
+        (player1 == "scissors" && player2 == "paper"))
         {
             computerLives -= 1
-            return ("You: " + playerSelection + " " + "Computer: " + computerSelection + " you Win |" + " You: " + playerLives + " Computer: " + computerLives)
+            winLoseText.textContent = "You: " + player1 + " " + "Computer: " + player2 + " you Win |" + " You: " + playerLives + " Computer: " + computerLives;
         }
-        else if ((playerSelection == "rock" && computerSelection == "paper") ||
-        (playerSelection == "paper" && computerSelection == "scissors") ||
-        (playerSelection == "scissors" && computerSelection == "rock"))
+        else if ((player1 == "rock" && player2 == "paper") ||
+        (player1 == "paper" && player2 == "scissors") ||
+        (player1 == "scissors" && player2 == "rock"))
         {
             playerLives -= 1
-            return ("You: " + playerSelection + " " + "Computer: " + computerSelection + " you Lose |" + " You: " + playerLives + " Computer: " + computerLives)
+            winLoseText.textContent = "You: " + player1 + " " + "Computer: " + player2 + " you Lose |" + " You: " + playerLives + " Computer: " + computerLives;
         }
 }
 
