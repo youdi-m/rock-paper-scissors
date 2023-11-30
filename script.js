@@ -1,76 +1,129 @@
+//declaring variables
 let playerLives = 5;
 let computerLives = 5;
 let playerSelection = '';
 let computerSelection = '';
 
+//settings possible options
 options = ["rock", "paper", "scissors"];
 
-const rockButton = document.querySelector('#rock');
-const paperButton = document.querySelector('#paper');
-const scissorsButton = document.querySelector('#scissors');
-const result = document.querySelector('#resultContainer');
-const winLoseText = document.querySelector('#winLoseText');
-const playerLivesText = document.querySelector('#playerLivesText');
-const computerLivesText = document.querySelector('#computerLivesText');
+//linking js to html elements
+const rockButton = document.querySelector("#rock");
+const paperButton = document.querySelector("#paper");
+const scissorsButton = document.querySelector("#scissors");
+const result = document.querySelector("#resultContainer");
+const resetButton = document.querySelector(".resetContainer");
 
+const winLoseText = document.querySelector("#winLoseText");
+const winnerText = document.querySelector("#winnerText");
+const playerLivesText = document.querySelector("#playerLivesText");
+const computerLivesText = document.querySelector("#computerLivesText");
+
+//initiating player and computer lives as 5
+playerLivesText.textContent = playerLives;
+computerLivesText.textContent = computerLives;
+
+//function to choose random option from options array
 function getComputerSelection()
 {
     choice = Math.floor(Math.random() * 3); //random number between 0 and 2
     return options[choice];
 }
 
+//
 function getPlayerSelection(playerClicked)
 {
     playerSelection = playerClicked;
     computerSelection = getComputerSelection();
+    playRound(playerSelection, computerSelection);
 }
 
+//event listener for when player presses rock
 rockButton.addEventListener('click', () => {
-    getComputerSelection(options[0]);
+    getPlayerSelection(options[0]);
 });
 
+//event listener for when player presses paper
 paperButton.addEventListener('click', () => {
-    getComputerSelection(options[1]);
+    getPlayerSelection(options[1]);
 });
 
+//event listener for when player presses scissors
 scissorsButton.addEventListener('click', () => {
-    getComputerSelection(options[2]);
+    getPlayerSelection(options[2]);
 });
 
-function playRound(player1, player2)
-{
-    if (player1 == player2)
-    {
-        winLoseText.textContent = 'its a tie!';
+//event listener for when player presses reset button which will reload the page
+resetButton.addEventListener('click', () => {
+    location.reload();
+});
 
-    } else if ((player1 == "rock" && player2 == "scissors") || 
-        (player1 == "paper" && player2 == "rock") ||
-        (player1 == "scissors" && player2 == "paper"))
-        {
-            computerLives -= 1
-            winLoseText.textContent = "You: " + player1 + " " + "Computer: " + player2 + " you Win |" + " You: " + playerLives + " Computer: " + computerLives;
-        }
-        else if ((player1 == "rock" && player2 == "paper") ||
-        (player1 == "paper" && player2 == "scissors") ||
-        (player1 == "scissors" && player2 == "rock"))
-        {
-            playerLives -= 1
-            winLoseText.textContent = "You: " + player1 + " " + "Computer: " + player2 + " you Lose |" + " You: " + playerLives + " Computer: " + computerLives;
-        }
+//function to display winner
+function endGame(winner)
+{
+    if (winner == 'player')
+    {
+        winnerText.textContent = 'Player Won!';
+    }
+    else if (winner == 'computer')
+    {
+        winnerText.textContent = 'Computer Won!';
+    }
+
+    //removing event listeners so numbers dont go negative
+    rockButton.removeEventListener('click', () => {
+        getPlayerSelection(options[0]);
+    });
+
+    paperButton.removeEventListener('click', () => {
+        getPlayerSelection(options[1]);
+    });
+
+    scissorsButton.removeEventListener('click', () => {
+        getPlayerSelection(options[2]);
+    });
 }
 
-while (playerLives >= 0 || computerLives >= 0)
+//function where choices are compared to see who won the round
+function playRound(realPlayer, computerPlayer)
 {
-    console.log(playRound(playerSelection, computerSelection))
-    computerSelection = getComputerSelection()
+    //tie conditions
+    if (realPlayer == computerPlayer)
+    {
+        console.log('tie!');
+        winLoseText.textContent = 'Round \n Tied';
 
-    if (playerLives == 0)
+    //winning conditions 
+    } else if ((realPlayer == "rock" && computerPlayer == "scissors") || 
+    (realPlayer == "paper" && computerPlayer == "rock") ||
+    (realPlayer == "scissors" && computerPlayer == "paper"))
     {
-        console.log("You lose!")
-        break
-    } else if (computerLives == 0)
+        computerLives -= 1
+        computerLivesText.textContent = computerLives;
+
+        //checking if win condition has been met
+        if (computerLives == 0)
+        {
+            endGame('player');
+        }
+
+        winLoseText.textContent = 'Round \n Won';
+    }
+
+    //losing conditions
+    else if ((realPlayer == "rock" && computerPlayer == "paper") ||
+    (realPlayer == "paper" && computerPlayer == "scissors") ||
+    (realPlayer == "scissors" && computerPlayer == "rock"))
     {
-        console.log("You Win!")
-        break
+        playerLives -= 1
+        playerLivesText.textContent = playerLives;
+
+        //checking if lose condition has been met
+        if (playerLives == 0)
+        {
+            endGame('computer');
+        }
+
+        winLoseText.textContent = 'Round \n Lost';
     }
 }

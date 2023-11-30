@@ -4,24 +4,42 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Rock Paper Scissors</title>
-        <script src="script.js"></script>
-    <link rel="stylesheet" href="styles.css"></link>
+        
+        <!-- linking css and js -->
+        <link rel="stylesheet" href="styles.css">
+        <script src="script.js" defer></script>
+        
+        <!-- importing google font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     </head>
     <body>
+        <!-- main container -->
         <div class="container">
+            <!-- container for first two divs which display player and computer lives -->
             <div class="livesContainer">
-                <div id="playerLivesContainer"><p id="playerLivesText"></p></div>
-                <div id="computerLivesContainer"><p id="computerLivesText"></p></div>
+                <div id="playerLivesContainer"><h1 id="playerLivesText"></h1></div>
+                <div id="winnerDiv"><p id="winnerText"></p></div>
+                <div id="computerLivesContainer"><h1 id="computerLivesText"></h1></div>
             </div>
+
+            <!-- container to display player and computer choices -->
+            <div class="resultContainer">
+                <div id="playerChoice">ur choice</div>
+                <div id="winLoseDiv"><p id="winLoseText"></p></div>
+                <div id="computerChoice">comp choice</div>
+            </div>
+
+            <!-- container to display player choices -->
             <div class="choiceContainer">
                 <div id="rock">rock</div>
                 <div id="paper">paper</div>
                 <div id="scissors">scissors</div>
             </div>
-            <div class="resultContainer">
-                <p id="winLoseText">win lose shit</p>
-                <div id="playerChoice">erg</div>
-                <div id="computerChoice">erw</div>
+        
+            <div class="resetContainer">
+                <h1 id="resetText">Reset</h1>
             </div>
         </div>
     </body>
