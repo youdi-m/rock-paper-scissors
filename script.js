@@ -38,6 +38,20 @@ function getPlayerSelection(playerClicked)
     playRound(playerSelection, computerSelection);
 }
 
+//function to check if game is over
+function endGame()
+{
+    if (computerLives == 0)
+    {
+        winnerText.textContent = 'Player Wins!';
+    }
+    else if(playerLives == 0)
+    {
+        winnerText.textContent = 'Computer Won!'
+    }
+
+}
+
 //event listener for when player presses rock
 rockButton.addEventListener('click', () => {
     getPlayerSelection(options[0]);
@@ -58,39 +72,12 @@ resetButton.addEventListener('click', () => {
     location.reload();
 });
 
-//function to display winner
-function endGame(winner)
-{
-    if (winner == 'player')
-    {
-        winnerText.textContent = 'Player Won!';
-    }
-    else if (winner == 'computer')
-    {
-        winnerText.textContent = 'Computer Won!';
-    }
-
-    //removing event listeners so numbers dont go negative
-    rockButton.removeEventListener('click', () => {
-        getPlayerSelection(options[0]);
-    });
-
-    paperButton.removeEventListener('click', () => {
-        getPlayerSelection(options[1]);
-    });
-
-    scissorsButton.removeEventListener('click', () => {
-        getPlayerSelection(options[2]);
-    });
-}
-
 //function where choices are compared to see who won the round
 function playRound(realPlayer, computerPlayer)
 {
     //tie conditions
     if (realPlayer == computerPlayer)
     {
-        console.log('tie!');
         winLoseText.textContent = 'Round \n Tied';
 
     //winning conditions 
@@ -100,14 +87,19 @@ function playRound(realPlayer, computerPlayer)
     {
         computerLives -= 1
         computerLivesText.textContent = computerLives;
+        winLoseText.textContent = 'Round \n Won';
 
-        //checking if win condition has been met
-        if (computerLives == 0)
+        //reset lives to 0 if below 0 CURRENTLY NOT WORKING
+        if (computerLives < 0)
         {
-            endGame('player');
+            computerLives = 0;
         }
 
-        winLoseText.textContent = 'Round \n Won';
+        //calls endgame function if computer is at 0 lives
+        if(computerLives == 0)
+        {
+            endGame();
+        }
     }
 
     //losing conditions
@@ -117,13 +109,18 @@ function playRound(realPlayer, computerPlayer)
     {
         playerLives -= 1
         playerLivesText.textContent = playerLives;
-
-        //checking if lose condition has been met
-        if (playerLives == 0)
+        winLoseText.textContent = 'Round \n Lost';
+        
+        //reset lives to 0 if below 0 CURRENTLY NOT WORKING
+        if (playerLives < 0)
         {
-            endGame('computer');
+            playerLives = 0;
         }
 
-        winLoseText.textContent = 'Round \n Lost';
+        //calls endgame function if player is at 0 lives
+        if(playerLives == 0)
+        {
+            endGame();
+        }
     }
 }
