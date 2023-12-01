@@ -15,31 +15,31 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     </head>
     <body>
+        <div class="playerIcons">
+            <div id="playerIcon">👨‍💻</div>
+            <div id="computerIcon">🤖</div>
+        </div>
         <!-- main container -->
         <div class="container">
             <!-- container for first two divs which display player and computer lives -->
             <div class="livesContainer">
+                <div id="playerChoice"></div>
                 <div id="playerLivesContainer"><h1 id="playerLivesText"></h1></div>
-                <div id="winnerDiv"><p id="winnerText"></p></div>
+
                 <div id="computerLivesContainer"><h1 id="computerLivesText"></h1></div>
+                <div id="computerChoice"></div>
             </div>
 
             <!-- container to display player and computer choices -->
             <div class="resultContainer">
-                <div id="playerChoice">ur choice</div>
                 <div id="winLoseDiv"><p id="winLoseText"></p></div>
-                <div id="computerChoice">comp choice</div>
             </div>
 
             <!-- container to display player choices -->
             <div class="choiceContainer">
-                <div id="rock">rock</div>
-                <div id="paper">paper</div>
-                <div id="scissors">scissors</div>
-            </div>
-        
-            <div class="resetContainer">
-                <h1 id="resetText">Reset</h1>
+                <div id="rock">✊</div>
+                <div id="paper">✋</div>
+                <div id="scissors">✌️</div>
             </div>
         </div>
     </body>
